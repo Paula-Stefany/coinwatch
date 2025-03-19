@@ -1,0 +1,11 @@
+.header{
+    display: flex;
+    justify-content: center;
+    padding: 60px 0;
+}
+
+.headerTitle{
+    text-decoration: none;
+    font-size: 40px;
+    color: rgb(251, 97, 123);
+}

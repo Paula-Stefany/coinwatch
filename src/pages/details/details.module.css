@@ -1,0 +1,50 @@
+.container{
+    max-width: 500px;
+    background-color: aqua;
+    margin: 30px auto;
+    background-color: antiquewhite;
+    border-radius: 20px;
+}
+
+.blockCenter{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin-bottom: 20px;
+    color: rgb(65, 64, 64);
+}
+
+.content{
+    padding: 15px;
+}
+
+.currencyContent{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: rgb(65, 64, 64);
+}
+
+.currencyImage{
+    width: 30px;
+    height: 30px;
+}
+
+p{
+    color: rgb(85, 85, 85);
+    font-size: 17px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+p strong{
+    color: rgb(66, 66, 66);
+}
+
+.loss{
+    color: red;
+}
+
+.win{
+    color: green;
+}

@@ -1,0 +1,17 @@
+
+.container{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.title{
+    color: rgb(65, 64, 64);
+    font-size: 36px;
+}
+
+.linkBackHome{
+    text-decoration: none;
+    color: rgb(250, 119, 140);
+    font-size: 18px;
+}

@@ -1,0 +1,129 @@
+
+.container{
+    max-width: 700px;
+    justify-content: center;
+    display: flex;
+    margin: auto;
+    flex-direction: column;
+}
+
+table{
+    width: 100%;
+}
+
+.tableLine{
+    background-color: antiquewhite;
+}
+
+th,
+td{
+    padding: 10px 8px;
+}
+
+th:last-child{
+    border-top-right-radius: 15px;
+}
+
+th:first-child{
+    border-top-left-radius: 15px;
+}
+
+.tdPositive{
+    color: green;
+}
+
+.tdLoss{
+    color: red;
+}
+
+.currencyImg{
+    width: 30px;
+    height: 30px;
+}
+
+.currency{
+    display: flex;
+    padding: 10px 8px;
+    align-items: center;
+}
+
+.linkCurrency{
+    text-decoration: none;
+    color: black;
+}
+
+.button{
+    padding: 10px;
+    font-size: 18px;
+    margin: 20px 0;
+    background: pink;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+}
+
+.inputForm{
+    width: 100%;
+    display: flex;
+    gap: 8px;
+    margin-bottom: 25px;
+}
+
+.input{
+    width: 100%;
+    border: none;
+    outline: none;
+    background:#f5f4f4;
+    padding: 16px;
+    border-radius: 10px;
+}
+
+.buttonForm{
+    border: none;
+    outline: none;
+    background: rgb(251, 97, 123);
+    justify-content: center;
+    display: flex;
+    padding: 16px;
+    border-radius: 10px;
+}
+
+.input::placeholder{
+    font-size: 19px;
+}
+
+@media screen and (max-width: 600px){
+
+    thead{
+        display: none;
+    }
+
+    .tableLine{
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 10px;
+        border-radius: 10px;
+    }
+
+
+    table td::before{
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+        text-transform: uppercase;
+        color: black;
+    }
+
+    table td{
+        text-align: right;
+        font-size: 18px;
+    }
+
+    .linkCurrency span{
+        font-size: 22px;
+        margin-left: 10px;
+    }
+
+}
