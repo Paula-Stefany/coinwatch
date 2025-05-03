@@ -5,18 +5,32 @@ import { BsSearch } from 'react-icons/bs'
 
 
 export interface CoinsProps{
-    changePercent24Hr: string;
-    explorer: string;
     id: string;
-    marketCapUsd: string;
-    maxSupply: string;
-    name: string;
-    priceUsd: string;
-    rank: string;
-    supply: string;
     symbol: string;
-    volumeUsd24Hr: string;
-    vwap24Hr: string;
+    name: string;
+    image: string;
+    current_price: number;
+    market_cap: number;
+    market_cap_rank: number;
+    fully_diluted_valuation: number;
+    total_volume: number;
+    high_24h: number;
+    low_24h: number;
+    price_change_24h: number;
+    price_change_percentage_24h: number;
+    market_cap_change_24h: number;
+    market_cap_change_percentage_24h: number;
+    circulating_supply: number;
+    total_supply: number;
+    max_supply: number;
+    ath: number;
+    ath_change_percentage: number;
+    ath_date: string;
+    atl: number;
+    atl_change_percentage: number;
+    atl_date: string;
+    roi: null | unknown;
+    last_updated: string;
     formatedPrice?: string; 
     formatedVolume?: string;
     formatedMarket?: string;
@@ -29,9 +43,10 @@ export interface DataProps{
 export function Home(){
 
     const [coins, setCoins] = useState<CoinsProps[]>([]);
-    const [offset, setOffset] = useState<number>(0);
+    const [page, setPage] = useState<number>(0);
     const [input, setinput] = useState<string>("");
     const navigate = useNavigate();
+
 
     function formatPrice(atualPrice: number){
 
@@ -45,6 +60,7 @@ export function Home(){
         return price.format(atualPrice);
     }
 
+
     function formatcompactPrice(atualPrice: number){
 
         const compactedPrice = Intl.NumberFormat("en-US", {
@@ -57,49 +73,47 @@ export function Home(){
         return compactedPrice.format(atualPrice);
     }
     
+
     useEffect(() => {
         
         async function getCoinsData(){
 
-            fetch(`https://api.coincap.io/v2/assets?limit=10&offset=${offset}`)
+            fetch(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&per_page=10&page=${page}`)
             .then(response => response.json())
-            .then((data: DataProps)  => {
+            .then((data: CoinsProps[])  => {
 
-                const listCoins = data.data;
 
-                // Adicionando os campos formatados
-                const formatedCoins = listCoins.map((coin: CoinsProps) => {
+                const formatedCoins = data.map((coin: CoinsProps) => {
                     
                     const coinFormated = {
                         ...coin,
-                        formatedPrice: formatPrice(Number(coin.priceUsd)),
-                        formatedVolume: formatcompactPrice(Number(coin.volumeUsd24Hr)),
-                        formatedMarket: formatcompactPrice(Number(coin.marketCapUsd)),
+                        formatedPrice: formatPrice(coin.current_price),
+                        formatedVolume: formatcompactPrice(coin.total_volume),
+                        formatedMarket: formatcompactPrice(coin.market_cap),
                     };
                     
                     return coinFormated;
 
                 })
 
-                
                 const allCoins = [...coins, ...formatedCoins]
                 setCoins(allCoins);
-                
+                console.log(coins);
                 
             })
         }
 
         getCoinsData();
 
-    }, [offset]);
+    }, [page]);
 
     function handleGetMore(){
-        if(offset === 0){
-            setOffset(10);
+        if(page === 0){
+            setPage(10);
             return;
         }
 
-        setOffset(offset + 10);
+        setPage(page + 10);
     }
 
     function handleSubmit(e: FormEvent){
@@ -118,7 +132,6 @@ export function Home(){
     return(
         
         <main>
-            
             <div className={styles.container}>
 
                 <form className={styles.inputForm} action="" onSubmit={handleSubmit}>
@@ -147,7 +160,7 @@ export function Home(){
 
                                 <td className={styles.td}>
                                     <div className={styles.currency}>
-                                        <img src={`https://assets.coincap.io/assets/icons/${coin.symbol.toLowerCase()}@2x.png`} alt="Logo da moeda" className={styles.currencyImg}/>
+                                        <img src={coin.image} alt="Logo da moeda" className={styles.currencyImg}/>
                                         <Link to={`/detail/${coin.id}`} className={styles.linkCurrency}>
                                             <span>{coin.name} | {coin.symbol}</span>
                                         </Link>
@@ -158,7 +171,7 @@ export function Home(){
                                 <td className={styles.td} data-label="Valor Mercado: ">{coin.formatedMarket}</td>
                                 <td className={styles.td} data-label="Preço: ">{coin.formatedPrice}</td>
                                 <td className={styles.td} data-label="Volume: ">{coin.formatedVolume}</td>
-                                <td className={ Number(coin.changePercent24Hr) < 0 ? styles.tdLoss : styles.tdPositive} data-label='Mudança 24H: ' >{Number(coin.changePercent24Hr).toFixed(2)}</td>
+                                <td className={ Number(coin.price_change_percentage_24h) < 0 ? styles.tdLoss : styles.tdPositive} data-label='Mudança 24H: ' >{Number(coin.price_change_percentage_24h).toFixed(2)}</td>
                             </tr>
                         ))}
                         
